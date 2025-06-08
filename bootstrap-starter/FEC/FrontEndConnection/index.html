@@ -71,6 +71,36 @@
         <!-- calling the withdraw function -->
     </div>
 
+    <hr>
+<h2>🎓 Student Card Upload & NFT Wallet Connect</h2>
+
+<form action="/verify-email" method="POST">
+  <input type="email" name="studentEmail" placeholder="Enter your student email" required />
+  <button type="submit">Verify Email</button>
+</form>
+
+
+<br>
+
+<button onclick="connectWallet()">Connect MetaMask</button>
+<p id="walletAddress">Wallet not connected</p>
+
+<script>
+  async function connectWallet() {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        document.getElementById('walletAddress').innerText = "Wallet: " + accounts[0];
+      } catch (err) {
+        alert("Wallet connection failed.");
+      }
+    } else {
+      alert("Please install MetaMask.");
+    }
+  }
+</script>
+
+
     <script> // the below script code is convention in web3 in forming the communication with Web
 
         let account;
@@ -83,10 +113,62 @@
         }
 
         const connectContract = async () => {
-            const ABI = 
+            const ABI = [
+	{
+		"inputs": [],
+		"name": "deposit",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
           
             ;
-            const Address = ""; // Taking Address from Remix 
+            const Address = "0x33a32a9e6a4281b4ac7de46bea5b60ed9e766b5a"; // Taking Address from Remix 
             window.web3 = await new Web3(window.ethereum);
             window.contract = await new window.web3.eth.Contract(ABI, Address);
             document.getElementById("contractArea").innerHTML = "Connected to Contract"; // calling the elementID above
