@@ -1,0 +1,193 @@
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: #000000; /* or your dark shade */
+  color: white;
+  padding: 10px 0;
+}
+
+.navbar a {
+  color: white;
+  padding: 0 15px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  color: #e50914;
+}
+
+main {
+  flex: 1;
+}
+
+
+/* Main content grows, footer pushed to bottom if space */
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-container {
+  text-align: center;
+  margin-top: 80px;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+form input[type="email"] {
+  padding: 10px;
+  width: 300px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button,
+button {
+  background-color: #d72638;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button:hover,
+button:hover {
+  background-color: #b71c2b;
+}
+
+#emailStatus,
+#userArea {
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+/* Carousel fixes */
+.carousel-inner img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.carousel-caption h3,
+.carousel-caption p {
+  color: black;
+  text-shadow: none;
+}
+
+/* Email input */
+input[type="email"] {
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Red buttons */
+button,
+.btn {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #bf0810;
+}
+
+/* MetaMask + Status */
+#userArea,
+#emailStatus {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Footer styling */
+footer {
+  background: #111;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.jumbotron {
+  background-color: white !important;
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: .15em solid red;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+  animation: typing 3s steps(30, end), blink-caret .75s step-end infinite;
+}
+
+.typewriter {
+  text-align: center;
+  margin: 0 auto;
+  ...
+}
+
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: red; }
+}

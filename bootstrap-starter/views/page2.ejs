@@ -1,0 +1,61 @@
+<%- include partials/header.ejs %>
+
+<body>
+  <div class="main-container">
+    <h2>Enter your student email & we'll send you a link to verify it.</h2>
+
+    <form id="emailForm">
+      <input type="email" id="studentEmail" name="studentEmail" placeholder="Enter your @student.ncirl.ie email" required />
+      <input type="hidden" id="walletAddress" name="walletAddress" />
+      <button type="submit">Verify Email</button>
+    </form>
+
+    <div>
+      <button onclick="connectMetamask()">Connect Wallet</button>
+      <p id="userArea">Status: Not connected to Metamask</p>
+    </div>
+  </div>
+</body>
+
+<script>
+  let account;
+
+  async function connectMetamask() {
+    if (window.ethereum) {
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      account = accounts[0];
+      document.getElementById("walletAddress").value = account;
+      document.getElementById("userArea").innerText = `User Account: ${account}`;
+    } else {
+      alert("Please install MetaMask.");
+    }
+  }
+
+  document.getElementById("emailForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("studentEmail").value;
+    const wallet = document.getElementById("walletAddress").value;
+
+    if (!wallet) {
+      alert("Please connect your MetaMask wallet first.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/verify-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `studentEmail=${encodeURIComponent(email)}&walletAddress=${encodeURIComponent(wallet)}`
+      });
+
+      const resultText = await response.text();
+      document.getElementById("userArea").innerText = resultText;
+    } catch (err) {
+      console.error(err);
+      document.getElementById("userArea").innerText = "An error occurred. Please try again.";
+    }
+  });
+</script>
