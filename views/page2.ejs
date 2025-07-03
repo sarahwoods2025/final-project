@@ -1,0 +1,67 @@
+<%- include('partials/header.ejs') %>
+
+<body>
+  <div class="main-container styled-box">
+    <img src="/images/halfRedLogo.png" alt="StudyPerks Logo" class="studyperks-logo" />
+
+    <h2>1. Connect your wallet</h2>
+    <div>
+      <button onclick="connectMetamask()" class="connect-button">Connect Wallet</button>
+      <p id="userArea" class="status-text">Status: Not connected to Wallet yet</p>
+    </div>
+
+    <h2>2. Enter your student email & we'll send you a link to verify it.</h2>
+
+    <form id="emailForm" class="email-form">
+      <input type="email" id="studentEmail" name="studentEmail" placeholder="Enter your @student email" required />
+      <input type="hidden" id="walletAddress" name="walletAddress" />
+      <button type="submit" class="verify-button">Verify Email</button>
+    </form>
+  </div>
+</body>
+
+<script>
+  let account;
+
+  async function connectMetamask() {
+    if (window.ethereum) {
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      account = accounts[0];
+      document.getElementById("walletAddress").value = account;
+      document.getElementById("userArea").innerText = `User Account: ${account}`;
+    } else {
+      alert("Please install MetaMask.");
+    }
+  }
+
+  document.getElementById("emailForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("studentEmail").value;
+    const wallet = document.getElementById("walletAddress").value;
+
+    if (!wallet) {
+      alert("Please connect your MetaMask wallet first.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/verify-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `studentEmail=${encodeURIComponent(email)}&walletAddress=${encodeURIComponent(wallet)}`
+      });
+
+      const resultText = await response.text();
+      document.getElementById("userArea").innerText = resultText;
+    } catch (err) {
+      console.error(err);
+      document.getElementById("userArea").innerText = "An error occurred. Please try again.";
+    }
+  });
+  </script>
+  <script src="/SDK/web3-checker.js"></script>
+
+<%- include('partials/footer.ejs') %>
